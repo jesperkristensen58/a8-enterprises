@@ -16,6 +16,7 @@ export const projects = [
     href: "https://psifi.app",
     host: "psifi.app",
     status: "Ongoing",
+    dates: "2023-present",
   },
   {
     name: "Direct",
@@ -23,6 +24,7 @@ export const projects = [
     href: "https://direct.dev",
     host: "direct.dev",
     status: "Ongoing",
+    dates: "2023-present",
   },
   {
     name: "Panoptic",
@@ -30,6 +32,7 @@ export const projects = [
     href: "https://panoptic.xyz",
     host: "panoptic.xyz",
     status: "Completed",
+    dates: "2021-2023",
   },
 ] as const;
 

@@ -38,6 +38,7 @@ export function Work() {
                   </div>
                   <p className="flex flex-col items-start gap-2 font-mono text-[11px] tracking-[0.14em] text-muted md:items-end">
                     <span className="text-foreground">{project.status}</span>
+                    <span>{project.dates}</span>
                     <span className="flex items-center gap-2 group-hover:text-foreground">
                       {project.host}
                       <ArrowUpRight
