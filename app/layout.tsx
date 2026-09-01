@@ -1,8 +1,13 @@
-import type { Metadata } from "next";
-import { GeistMono } from "geist/font/mono";
+import type { Metadata, Viewport } from "next";
 import { GeistSans } from "geist/font/sans";
 import { site } from "@/lib/site";
 import "./globals.css";
+
+export const viewport: Viewport = {
+  themeColor: "#f3f3f4",
+  width: "device-width",
+  initialScale: 1,
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -35,7 +40,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${GeistSans.variable} ${GeistMono.variable} h-full antialiased`}
+      className={`${GeistSans.variable} h-full antialiased`}
     >
       <body className="min-h-full bg-background font-sans text-foreground">
         {children}
