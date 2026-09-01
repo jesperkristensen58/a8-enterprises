@@ -1,36 +1,60 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# A8 Enterprises
 
-## Getting Started
+Studio landing page for a8enterprises.com. Next.js, Tailwind, Cloudflare-ready.
 
-First, run the development server:
+## Local
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm install
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Form submissions in development succeed without sending email. To deliver mail:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+cp .env.example .env.local
+# set RESEND_API_KEY, INQUIRY_TO, and (after DNS) RESEND_FROM
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+pnpm test
+pnpm build
+```
 
-## Learn More
+## Domain: GoDaddy DNS to Cloudflare (do this now)
 
-To learn more about Next.js, take a look at the following resources:
+The `.com` was just registered. ICANN blocks a **registrar** transfer for 60 days. Point DNS at Cloudflare today; transfer the registrar later if you want at-cost renewals.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Log in to [Cloudflare](https://dash.cloudflare.com) and add site `a8enterprises.com`.
+2. Copy the two Cloudflare nameservers (they look like `ada.ns.cloudflare.com` and `bob.ns.cloudflare.com`).
+3. In GoDaddy: **My Products → a8enterprises.com → DNS → Nameservers → Change → I'll use my own nameservers**.
+4. Paste the two Cloudflare nameservers. Save. Wait for Cloudflare to mark the zone **Active** (often minutes, sometimes up to 24h).
+5. In Cloudflare DNS, after deploy, add:
+   - `CNAME @` → your Pages hostname (`a8-enterprises.pages.dev`) with Proxy on
+   - `CNAME www` → `a8enterprises.com` with Proxy on
+6. In Pages: **Custom domains → a8enterprises.com** (and `www`).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Do not change registrant contact details at GoDaddy until after the 60-day window if you plan to transfer the registrar.
 
-## Deploy on Vercel
+## Deploy
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Cloudflare Pages, connected to this repo:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Framework preset: Next.js
+- Build command: `pnpm build`
+- Output: leave as the Next.js default for `@cloudflare/next-on-pages` / OpenNext once wired, or use Vercel and keep DNS on Cloudflare.
+
+Pages env:
+
+```
+INQUIRY_TO=jespertoftkristensen@gmail.com
+RESEND_API_KEY=...
+RESEND_FROM=A8 Enterprises <inquiries@a8enterprises.com>
+INQUIRY_ORIGIN=https://a8enterprises.com
+```
+
+Verify `a8enterprises.com` on Resend after Cloudflare DNS is live, then switch `RESEND_FROM` off `beth.t@example.com`.
+
+## Copy to swap
+
+Active projects live in `lib/site.ts`.
