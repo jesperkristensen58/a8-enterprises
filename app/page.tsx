@@ -12,8 +12,8 @@ export default function Home() {
       <Nav />
       <main id="content">
         <Hero />
-        <Practice />
         <Work />
+        <Practice />
         <Stair />
         <Inquiry />
       </main>
