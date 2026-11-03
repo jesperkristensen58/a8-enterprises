@@ -12,10 +12,10 @@ export const site = {
 export const projects = [
   {
     name: "PsiFi",
-    line: "Stablecoin payments, from wallet to card.",
+    line: "Stablecoin payments, from wallet to card. Built by A8 and acquired by Prime Delta in October 2026. We support the transition for up to 18 months.",
     href: "https://psifi.app",
     host: "psifi.app",
-    status: "Ongoing",
+    status: "Acquired",
     dates: "2023-present",
   },
   {
@@ -24,7 +24,7 @@ export const projects = [
     href: "https://direct.dev",
     host: "direct.dev",
     status: "Ongoing",
-    dates: "2023-present",
+    dates: "2025-present",
   },
   {
     name: "Panoptic",
